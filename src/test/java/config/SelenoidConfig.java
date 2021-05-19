@@ -10,7 +10,7 @@ public class SelenoidConfig {
         Configuration.browserCapabilities.setCapability(ChromeOptions.CAPABILITY, options);
         Configuration.browserVersion = "89";
         Configuration.browser = "chrome";
-        //Configuration.remote = "http://localhost:4444/wd/hub";
+        Configuration.remote = "http://localhost:4444/wd/hub";
         Configuration.timeout = 10000;
         Configuration.reportsFolder = "target/screenshots";
         Configuration.clickViaJs = true;
