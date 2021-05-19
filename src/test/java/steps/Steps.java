@@ -9,4 +9,9 @@ public class Steps {
     public static void checkAuthorization(String username) {
         Assert.assertEquals(username, "Ростов А.И.");
     }
+
+    @Step(value = "Количество категорий услуг {count}")
+    public static void checkCategoriesCount(int count) {
+        Assert.assertTrue(count > 0);
+    }
 }
