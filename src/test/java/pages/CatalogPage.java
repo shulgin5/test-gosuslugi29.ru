@@ -2,6 +2,7 @@ package pages;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.ex.ElementNotFound;
+import com.codeborne.selenide.ex.ElementShouldNot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,14 +17,10 @@ public class CatalogPage {
     public void loadMore() {
         try {
             while (true) {
-                buttonLoadMore = $(byXpath("//button[@class=\"btn btn-lg btn-primary btn--tiles-more btn--pagination\"]"));
+                buttonLoadMore = $(byXpath("//*[@class=\"btn btn-lg btn-primary btn--tiles-more btn--pagination\"]"));
                 buttonLoadMore.click();
             }
-        }catch (ElementNotFound e) { }
-    }
-
-    private List<SelenideElement> getAllCategories(){
-        return $$(byXpath("//*[@class=\"t-modal-layout-item g-tile g-tile--3\"]"));
+        }catch (Throwable e) { }
     }
 
     public List<String> getLinksCategories(){
@@ -35,4 +32,24 @@ public class CatalogPage {
         }
         return links;
     }
+
+    private List<SelenideElement> getAllCategories(){
+        return $$(byXpath("//*[@class=\"t-modal-layout-item g-tile g-tile--3\"]"));
+    }
+
+    public Object[][] getLinksServices(){
+        List<SelenideElement> allServices = getAllServices();
+        int countServices = allServices.size();
+        Object[][] links = new Object[countServices][1];
+        for (int i = 0; i < countServices; i++) {
+            links[i][0] = allServices.get(i).getAttribute("href");
+        }
+        return links;
+    }
+
+    private List<SelenideElement> getAllServices(){
+        return $$(byXpath("//*[@data-behavior=\"tileAction\"]/a"));
+    }
+
+
 }
