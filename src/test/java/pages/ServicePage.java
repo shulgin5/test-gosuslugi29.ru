@@ -31,11 +31,11 @@ public class ServicePage {
         return this.reglamentLink.getAttribute("href");
     }
 
-    public int countElectonicSubServices(){
+    public int countElectronicSubServices(){
         return electronicServices.size();
     }
 
-    public int countNoElectonicSubServices(){
+    public int countNoElectronicSubServices(){
         return noElectronicServices.size();
     }
 
