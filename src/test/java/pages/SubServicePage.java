@@ -3,8 +3,12 @@ package pages;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.ex.ElementNotFound;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 
 public class SubServicePage {
     private SelenideElement buttonGet = $(byXpath("//*[contains(text(),'Получить услугу')]"));
@@ -17,6 +21,10 @@ public class SubServicePage {
 
     private SelenideElement deadlineComplete = $(byXpath("//p[@class='attr-title' and contains(text(),'Срок выполнения услуги:')]/following::div[1]"));
 
+    private SelenideElement cost = $(byXpath("//*[@id='dataGrpcost']/ancestor::h3/following-sibling::div"));
+
+    private  SelenideElement template = $(byXpath("//span[text()='Шаблон']/ancestor::a"));
+
     public boolean existsButtonGet() {
         return buttonGet.exists();
     }
@@ -25,17 +33,38 @@ public class SubServicePage {
         return buttonAppointment.exists();
     }
 
+    public boolean existsCost() {
+        return cost.exists();
+    }
+
     public String getDeadLineComplete() {
-        return deadlineComplete.getAttribute("innerText");
+        try{
+            return Optional.ofNullable(deadlineComplete.getAttribute("innerText")).orElse("");
+        }catch (ElementNotFound e) { return ""; }
     }
 
     public String getRegulationsLink() {
-        return regulationsLink.getAttribute("href");
+        try{
+            return Optional.ofNullable(regulationsLink.getAttribute("href")).orElse("");
+        }catch (ElementNotFound e) { return ""; }
+    }
+
+    public String getTemplateLink() {
+        try{
+            return Optional.ofNullable(template.getAttribute("href")).orElse("");
+        }catch (ElementNotFound e) { return ""; }
     }
 
     public void clickButtonAllInfo() {
         buttonAllInfo.click();
     }
 
-
+    public List<String> getCategoriesRecipient() {
+        List<SelenideElement> categoriesElements = $$(byXpath("//*[@id='dataGrpcategory']/ancestor::h3/following-sibling::div[1]/div/div[@class='attr-title']"));
+        List<String> categoriesStrings;
+        categoriesStrings = categoriesElements.stream()
+                .map((element) -> element.getAttribute("innerText"))
+                .collect(Collectors.toList());
+        return categoriesStrings;
+    }
 }
