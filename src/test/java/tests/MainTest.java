@@ -1,12 +1,12 @@
 package tests;
 
-import io.qameta.allure.Description;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
 import pages.BasePage;
 import steps.Steps;
 import java.util.List;
 import static com.codeborne.selenide.Selenide.open;
+import io.qameta.allure.Description;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
 public class MainTest extends BasePage{
 
@@ -17,16 +17,9 @@ public class MainTest extends BasePage{
         return allServicesObject;
     }
 
-   /* @DataProvider(name = "services")
-    public Object[][] allServices() {
-        return new Object[][]{
-            {"https://gosuslugi29.ru/pgu/services/info.htm?id=10493@egService"},
-                {"https://gosuslugi29.ru/pgu/services/info.htm?id=8456@egService"}
-        };
-    }*/
-
     @Test
-    public void main() {
+    @Description(value = "Поиск всех услуг на портале")
+    public void findAllServices() {
         Steps.checkAuthorization(mainPage.getUsername());
         mainPage.goToCatalog();
         catalogPage.loadMore();
@@ -34,17 +27,16 @@ public class MainTest extends BasePage{
         Steps.checkCategoriesCount(categories.size());
         open(categories.get(2));
         catalogPage.loadMore();
-        this.allServicesObject = catalogPage.getLinksServices();
+        allServicesObject = catalogPage.getLinksServices();
     }
 
     @Test(dataProvider = "services")
     @Description(value = "Проверка услуги")
-    public void serviceTest(String href) {
+    public void serviceTest(String name, String href) {
         open(href);
-        Steps.checkServiceName(servicePage.getServiceName());
-        //Steps.haveNoElectronicServices(servicePage.countNoElectronicSubServices());
-        Steps.haveElectronicServices(servicePage.countElectronicSubServices());
-        Steps.checkSubServices(servicePage);
+        int countEl = servicePage.countElectronicSubServices();
+        int countNoEl = servicePage.countNoElectronicSubServices();
+        Steps.checkSubServices(servicePage, countEl, countNoEl);
     }
 
 }

@@ -24,14 +24,14 @@ public class Steps {
         Assert.assertTrue(count > 0);
     }
 
-    @Step(value = "{name}")
-    public static void checkServiceName(String name) {
-        Assert.assertTrue(name.length() > 0, name);
-    }
-
     @Step(value = "Неэлектронных подуслуг - {count}")
     public static void haveNoElectronicServices(int count) {
         Assert.assertTrue(count == 0, "Неэлектронные услуги отсутствуют");
+    }
+
+    @Step(value = "Количество подуслуг: {elCount} эл., {noElCount} неэл.")
+    public static void countSubServices(int elCount, int noElCount) {
+        Assert.assertTrue((elCount == 0 && noElCount > 0), "Наличие неэлектронных услуг");
     }
 
     @Step(value = "Электронных подуслуг - {count}")
@@ -39,12 +39,20 @@ public class Steps {
         Assert.assertTrue(count > 0, "Электронные услуги отсутствуют");
     }
 
-    @Step(value = "Проверка подуслуг")
-    public static void checkSubServices(ServicePage servicePage) {
+    @Step(value = "Проверка подуслуг: {countEl} эл., {countNoEl} неэл.")
+    public static void checkSubServices(ServicePage servicePage, int countEl, int countNoEl) {
         SoftAssert softAssert = new SoftAssert();
-        SubServicePage subServicePage = new SubServicePage();
         List<String> electronicServices = servicePage.getElectronicServices();
         List<String> noElectronicServices = servicePage.getNoElectronicServices();
+        checkElectronicServices(softAssert, electronicServices);
+        checkNoElectronicServices(softAssert, noElectronicServices);
+        softAssert.assertTrue(countEl > 0, "Электронные услуги отсутствуют!");
+        softAssert.assertTrue(countNoEl == 0, "Наличие неэлектронных услуг");
+        softAssert.assertAll();
+    }
+
+    public static void checkElectronicServices(SoftAssert softAssert, List<String> electronicServices) {
+        SubServicePage subServicePage = new SubServicePage();
         for (String link : electronicServices) {
             open(link);
             softAssert.assertTrue(subServicePage.getTemplateLink().length() > 0, "Шаблон заявления не найден");
@@ -58,6 +66,20 @@ public class Steps {
             softAssert.assertTrue(subServicePage.existsCost(), "Ошибка в блоке 'Стоимость и порядок оплаты'");
             softAssert.assertTrue(subServicePage.getOrganization().length() > 0, "Не найдено ведомство, предоставляющее услугу");
         }
-        softAssert.assertAll();
+    }
+
+    public static void checkNoElectronicServices(SoftAssert softAssert, List<String> electronicServices) {
+        SubServicePage subServicePage = new SubServicePage();
+        for (String link : electronicServices) {
+            open(link);
+            softAssert.assertTrue(subServicePage.getTemplateLink().length() > 0, "Шаблон заявления не найден");
+            softAssert.assertTrue(subServicePage.getExampleLink().length() > 0, "Пример заявления не найден");
+            subServicePage.clickButtonAllInfo();
+            softAssert.assertTrue(subServicePage.getRegulationsLink().length() > 0, "Не удалось найти ссылку на регламент'");
+            softAssert.assertTrue(Pattern.matches(".*\\d+.*", subServicePage.getDeadLineComplete()), "Не найден срок оказания услуги");
+            softAssert.assertTrue(subServicePage.getCategoriesRecipient().size() > 0, "Ошибка в блоке 'Категории получателей'");
+            softAssert.assertTrue(subServicePage.existsCost(), "Ошибка в блоке 'Стоимость и порядок оплаты'");
+            softAssert.assertTrue(subServicePage.getOrganization().length() > 0, "Не найдено ведомство, предоставляющее услугу");
+        }
     }
 }

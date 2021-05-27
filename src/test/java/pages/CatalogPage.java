@@ -1,15 +1,12 @@
 package pages;
-import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.ex.ElementNotFound;
-import com.codeborne.selenide.ex.ElementShouldNot;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import static com.codeborne.selenide.Selectors.byClassName;
 import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
+import com.codeborne.selenide.SelenideElement;
 
 public class CatalogPage {
     private SelenideElement buttonLoadMore;
@@ -40,9 +37,10 @@ public class CatalogPage {
     public Object[][] getLinksServices(){
         List<SelenideElement> allServices = getAllServices();
         int countServices = allServices.size();
-        Object[][] links = new Object[countServices][1];
+        Object[][] links = new Object[countServices][2];
         for (int i = 0; i < countServices; i++) {
-            links[i][0] = allServices.get(i).getAttribute("href");
+            links[i][0] = allServices.get(i).find(byClassName("g-tile-title")).getAttribute("title");
+            links[i][1] = allServices.get(i).getAttribute("href");
         }
         return links;
     }
@@ -50,6 +48,4 @@ public class CatalogPage {
     private List<SelenideElement> getAllServices(){
         return $$(byXpath("//*[@data-behavior=\"tileAction\"]/a"));
     }
-
-
 }
