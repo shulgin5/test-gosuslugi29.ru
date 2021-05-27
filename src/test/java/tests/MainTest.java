@@ -32,7 +32,7 @@ public class MainTest extends BasePage{
         catalogPage.loadMore();
         List<String> categories = catalogPage.getLinksCategories();
         Steps.checkCategoriesCount(categories.size());
-        open(categories.get(2));
+        open(categories.get(1));
         catalogPage.loadMore();
         this.allServicesObject = catalogPage.getLinksServices();
     }
