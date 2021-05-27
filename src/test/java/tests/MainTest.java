@@ -1,9 +1,6 @@
 package tests;
 
-import io.qameta.allure.Allure;
-import io.qameta.allure.AllureLifecycle;
 import io.qameta.allure.Description;
-import io.qameta.allure.Step;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pages.BasePage;
@@ -15,18 +12,18 @@ public class MainTest extends BasePage{
 
     private Object[][] allServicesObject;
 
-   /* @DataProvider(name = "services")
+    @DataProvider(name = "services")
     public Object[][] allServices() {
         return allServicesObject;
-    }*/
+    }
 
-    @DataProvider(name = "services")
+   /* @DataProvider(name = "services")
     public Object[][] allServices() {
         return new Object[][]{
             {"https://gosuslugi29.ru/pgu/services/info.htm?id=10493@egService"},
                 {"https://gosuslugi29.ru/pgu/services/info.htm?id=8456@egService"}
         };
-    }
+    }*/
 
     @Test
     public void main() {
@@ -35,7 +32,7 @@ public class MainTest extends BasePage{
         catalogPage.loadMore();
         List<String> categories = catalogPage.getLinksCategories();
         Steps.checkCategoriesCount(categories.size());
-        open(categories.get(13));
+        open(categories.get(2));
         catalogPage.loadMore();
         this.allServicesObject = catalogPage.getLinksServices();
     }

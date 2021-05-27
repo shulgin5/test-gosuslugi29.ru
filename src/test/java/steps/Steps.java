@@ -48,6 +48,7 @@ public class Steps {
         for (String link : electronicServices) {
             open(link);
             softAssert.assertTrue(subServicePage.getTemplateLink().length() > 0, "Шаблон заявления не найден");
+            softAssert.assertTrue(subServicePage.getExampleLink().length() > 0, "Пример заявления не найден");
             subServicePage.clickButtonAllInfo();
             softAssert.assertTrue(subServicePage.existsButtonGet(), "Нет кнопки 'Получить услугу'");
             softAssert.assertTrue(subServicePage.existsButtonAppointment(), "Нет кнопки 'Записаться'");
@@ -55,6 +56,7 @@ public class Steps {
             softAssert.assertTrue(Pattern.matches(".*\\d+.*", subServicePage.getDeadLineComplete()), "Не найден срок оказания услуги");
             softAssert.assertTrue(subServicePage.getCategoriesRecipient().size() > 0, "Ошибка в блоке 'Категории получателей'");
             softAssert.assertTrue(subServicePage.existsCost(), "Ошибка в блоке 'Стоимость и порядок оплаты'");
+            softAssert.assertTrue(subServicePage.getOrganization().length() > 0, "Не найдено ведомство, предоставляющее услугу");
         }
         softAssert.assertAll();
     }
