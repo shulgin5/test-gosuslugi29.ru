@@ -29,10 +29,10 @@ public class Steps {
         Assert.assertTrue(name.length() > 0, name);
     }
 
-    @Step(value = "Неэлектронных подуслуг - {count}")
+    /*@Step(value = "Неэлектронных подуслуг - {count}")
     public static void haveNoElectronicServices(int count) {
         Assert.assertTrue(count == 0, "Неэлектронные услуги отсутствуют");
-    }
+    }*/
 
     @Step(value = "Электронных подуслуг - {count}")
     public static void haveElectronicServices(int count) {
@@ -51,7 +51,7 @@ public class Steps {
             softAssert.assertTrue(subServicePage.getExampleLink().length() > 0, "Пример заявления не найден");
             subServicePage.clickButtonAllInfo();
             softAssert.assertTrue(subServicePage.existsButtonGet(), "Нет кнопки 'Получить услугу'");
-            softAssert.assertTrue(subServicePage.existsButtonAppointment(), "Нет кнопки 'Записаться'");
+            //softAssert.assertTrue(subServicePage.existsButtonAppointment(), "Нет кнопки 'Записаться'");
             softAssert.assertTrue(subServicePage.getRegulationsLink().length() > 0, "Не удалось найти ссылку на регламент'");
             softAssert.assertTrue(Pattern.matches(".*\\d+.*", subServicePage.getDeadLineComplete()), "Не найден срок оказания услуги");
             softAssert.assertTrue(subServicePage.getCategoriesRecipient().size() > 0, "Ошибка в блоке 'Категории получателей'");
