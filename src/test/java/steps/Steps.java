@@ -29,14 +29,14 @@ public class Steps {
         Assert.assertTrue(name.length() > 0, name);
     }
 
-    /*@Step(value = "Неэлектронных подуслуг - {count}")
+    @Step(value = "Неэлектронных подуслуг - {count}")
     public static void haveNoElectronicServices(int count) {
         Assert.assertTrue(count == 0, "Неэлектронные услуги отсутствуют");
-    }*/
+    }
 
     @Step(value = "Электронных подуслуг - {count}")
     public static void haveElectronicServices(int count) {
-        Assert.assertFalse(count == 0, "Электронные услуги отсутствуют");
+        Assert.assertTrue(count > 0, "Электронные услуги отсутствуют");
     }
 
     @Step(value = "Проверка подуслуг")

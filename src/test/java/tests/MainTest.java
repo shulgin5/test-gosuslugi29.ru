@@ -42,7 +42,7 @@ public class MainTest extends BasePage{
     public void serviceTest(String href) {
         open(href);
         Steps.checkServiceName(servicePage.getServiceName());
-        Steps.haveNoElectronicServices(servicePage.countNoElectronicSubServices());
+        //Steps.haveNoElectronicServices(servicePage.countNoElectronicSubServices());
         Steps.haveElectronicServices(servicePage.countElectronicSubServices());
         Steps.checkSubServices(servicePage);
     }
