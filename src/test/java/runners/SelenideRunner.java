@@ -5,19 +5,25 @@ import com.codeborne.selenide.Selenide;
 import config.SelenoidConfig;
 import config.UrlConfig;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeSuite;
+import steps.Steps;
+
+import java.util.List;
+
 import static com.codeborne.selenide.Selenide.open;
 
 public class SelenideRunner {
 
-    @BeforeClass(alwaysRun = true)
+    @BeforeSuite(alwaysRun = true)
     public void setUp() {
         SelenoidConfig config = new SelenoidConfig();
         config.createWebDriverInstance();
         open(UrlConfig.urlPortal);
     }
 
-    @AfterClass
+    @AfterSuite
     public void closeConnection() {
         Selenide.closeWebDriver();
     }

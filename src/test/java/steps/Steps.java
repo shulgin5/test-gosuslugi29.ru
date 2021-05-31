@@ -24,21 +24,6 @@ public class Steps {
         Assert.assertTrue(count > 0);
     }
 
-    @Step(value = "Неэлектронных подуслуг - {count}")
-    public static void haveNoElectronicServices(int count) {
-        Assert.assertTrue(count == 0, "Неэлектронные услуги отсутствуют");
-    }
-
-    @Step(value = "Количество подуслуг: {elCount} эл., {noElCount} неэл.")
-    public static void countSubServices(int elCount, int noElCount) {
-        Assert.assertTrue((elCount == 0 && noElCount > 0), "Наличие неэлектронных услуг");
-    }
-
-    @Step(value = "Электронных подуслуг - {count}")
-    public static void haveElectronicServices(int count) {
-        Assert.assertTrue(count > 0, "Электронные услуги отсутствуют");
-    }
-
     @Step(value = "Проверка подуслуг: {countEl} эл., {countNoEl} неэл.")
     public static void checkSubServices(ServicePage servicePage, int countEl, int countNoEl) {
         SoftAssert softAssert = new SoftAssert();
@@ -65,6 +50,8 @@ public class Steps {
             softAssert.assertTrue(subServicePage.getCategoriesRecipient().size() > 0, "Ошибка в блоке 'Категории получателей'");
             softAssert.assertTrue(subServicePage.existsCost(), "Ошибка в блоке 'Стоимость и порядок оплаты'");
             softAssert.assertTrue(subServicePage.getOrganization().length() > 0, "Не найдено ведомство, предоставляющее услугу");
+            softAssert.assertTrue(subServicePage.getRefusals().size() > 0, "Ошибка в блоке 'Основания для отказа'");
+            softAssert.assertTrue(subServicePage.getResults().size() > 0, "Ошибка в блоке 'Результат оказания услуги'");
         }
     }
 
@@ -80,6 +67,10 @@ public class Steps {
             softAssert.assertTrue(subServicePage.getCategoriesRecipient().size() > 0, "Ошибка в блоке 'Категории получателей'");
             softAssert.assertTrue(subServicePage.existsCost(), "Ошибка в блоке 'Стоимость и порядок оплаты'");
             softAssert.assertTrue(subServicePage.getOrganization().length() > 0, "Не найдено ведомство, предоставляющее услугу");
+            softAssert.assertTrue(subServicePage.getRefusals().size() > 0, "Ошибка в блоке 'Основания для отказа'");
+            softAssert.assertTrue(subServicePage.getResults().size() > 0, "Ошибка в блоке 'Результат оказания услуги'");
+            System.out.println(subServicePage.getRefusals());
+            System.out.println(subServicePage.getResults());
         }
     }
 }

@@ -19,6 +19,9 @@ public class SubServicePage {
     private static final SelenideElement template = $(byXpath("//span[text()='Шаблон']/ancestor::a"));
     private static final SelenideElement example = $(byXpath("//span[text()='Пример']/ancestor::a"));
     private static final SelenideElement organization = $(byXpath("//a[@class='service-organ-link']"));
+    private static final List<SelenideElement> refusalsElements = $$(byXpath("//*[contains(text(),'Основание для приостановления/отказа')]/following-sibling::ul/li"));
+    private static final List<SelenideElement> categoriesElements = $$(byXpath("//*[@id='dataGrpcategory']/ancestor::h3/following-sibling::div[1]/div/div[@class='attr-title']"));
+    private static final List<SelenideElement> resultsElements = $$(byXpath("//*[contains(text(),'Результат оказания услуги:')]/following-sibling::div/ul/li"));
 
     public boolean existsButtonGet() {
         return buttonGet.exists();
@@ -44,6 +47,22 @@ public class SubServicePage {
         }catch (ElementNotFound e) { return ""; }
     }
 
+    public List<String> getRefusals() {
+        List<String> refusalsStrings;
+        refusalsStrings = refusalsElements.stream()
+                .map((element) -> element.getAttribute("innerText"))
+                .collect(Collectors.toList());
+        return refusalsStrings;
+    }
+
+    public List<String> getResults() {
+        List<String> resultsStrings;
+        resultsStrings = resultsElements.stream()
+                .map((element) -> element.getAttribute("innerText"))
+                .collect(Collectors.toList());
+        return resultsStrings;
+    }
+
     public String getTemplateLink() {
         try{
             return Optional.ofNullable(template.getAttribute("href")).orElse("");
@@ -67,7 +86,6 @@ public class SubServicePage {
     }
 
     public List<String> getCategoriesRecipient() {
-        List<SelenideElement> categoriesElements = $$(byXpath("//*[@id='dataGrpcategory']/ancestor::h3/following-sibling::div[1]/div/div[@class='attr-title']"));
         List<String> categoriesStrings;
         categoriesStrings = categoriesElements.stream()
                 .map((element) -> element.getAttribute("innerText"))
