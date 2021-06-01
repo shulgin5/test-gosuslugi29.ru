@@ -24,11 +24,17 @@ public class MainTest extends BasePage{
         catalogPage.loadMore();
         List<String> categories = catalogPage.getLinksCategories();
         Steps.checkCategoriesCount(categories.size());
-        for(String category : categories) {
+        open(categories.get(2));
+        catalogPage.loadMore();
+        allServicesObject = Utils.concatenateOfArrays(allServicesObject, catalogPage.getLinksServices());
+        open(categories.get(3));
+        catalogPage.loadMore();
+        allServicesObject = Utils.concatenateOfArrays(allServicesObject, catalogPage.getLinksServices());
+        /*for(String category : categories) {
             open(category);
             catalogPage.loadMore();
             allServicesObject = Utils.concatenateOfArrays(allServicesObject, catalogPage.getLinksServices());
-        }
+        }*/
     }
 
     @Test(dataProvider = "services")
