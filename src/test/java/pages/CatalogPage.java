@@ -12,9 +12,11 @@ public class CatalogPage {
     private SelenideElement buttonLoadMore;
 
     public void loadMore() {
+        int sum = 0;
         try {
             while (true) {
                 buttonLoadMore = $(byXpath("//*[@class=\"btn btn-lg btn-primary btn--tiles-more btn--pagination\"]"));
+                System.out.println(sum);
                 buttonLoadMore.click();
             }
         }catch (Throwable e) { }
