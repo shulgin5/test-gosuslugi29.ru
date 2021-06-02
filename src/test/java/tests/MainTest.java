@@ -25,7 +25,9 @@ public class MainTest extends BasePage{
         List<String> categories = catalogPage.getLinksCategories();
         Steps.checkCategoriesCount(categories.size());
         open(categories.get(0));
-       
+        catalogPage.loadMore();
+        allServicesObject = Utils.concatenateOfArrays(allServicesObject, catalogPage.getLinksServices());
+        System.out.println(allServicesObject.length);
         /*for(String category : categories) {
             open(category);
             catalogPage.loadMore();
