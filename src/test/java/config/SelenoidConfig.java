@@ -17,6 +17,6 @@ public class SelenoidConfig {
         Configuration.startMaximized = true;
         Configuration.baseUrl = "";
         Configuration.browserCapabilities.setCapability("enableVNC", true);
-        Configuration.browserCapabilities.setCapability("enableVideo", true);
+        Configuration.browserCapabilities.setCapability("enableVideo", false);
     }
 }
