@@ -69,8 +69,6 @@ public class Steps {
             softAssert.assertTrue(subServicePage.getOrganization().length() > 0, "Не найдено ведомство, предоставляющее услугу");
             softAssert.assertTrue(subServicePage.getRefusals().size() > 0, "Ошибка в блоке 'Основания для отказа'");
             softAssert.assertTrue(subServicePage.getResults().size() > 0, "Ошибка в блоке 'Результат оказания услуги'");
-            System.out.println(subServicePage.getRefusals());
-            System.out.println(subServicePage.getResults());
         }
     }
 }
