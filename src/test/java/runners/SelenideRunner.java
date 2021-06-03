@@ -1,17 +1,10 @@
 package runners;
 
-
 import com.codeborne.selenide.Selenide;
 import config.SelenoidConfig;
 import config.UrlConfig;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
-import steps.Steps;
-
-import java.util.List;
-
 import static com.codeborne.selenide.Selenide.open;
 
 public class SelenideRunner {

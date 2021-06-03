@@ -1,15 +1,12 @@
 package steps;
 
-import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 import pages.ServicePage;
 import pages.SubServicePage;
-
 import java.util.List;
 import java.util.regex.Pattern;
-
 import static com.codeborne.selenide.Selenide.open;
 
 public class Steps {
@@ -45,13 +42,13 @@ public class Steps {
             subServicePage.clickButtonAllInfo();
             softAssert.assertTrue(subServicePage.existsButtonGet(), "Нет кнопки 'Получить услугу'");
             //softAssert.assertTrue(subServicePage.existsButtonAppointment(), "Нет кнопки 'Записаться'");
-            softAssert.assertTrue(subServicePage.getRegulationsLink().length() > 0, "Не удалось найти ссылку на регламент'");
+            softAssert.assertTrue(subServicePage.getRegulationsLink().length() > 0, "Не удалось найти ссылку на административный регламент'");
             softAssert.assertTrue(Pattern.matches(".*\\d+.*", subServicePage.getDeadLineComplete()), "Не найден срок оказания услуги");
-            softAssert.assertTrue(subServicePage.getCategoriesRecipient().size() > 0, "Ошибка в блоке 'Категории получателей'");
-            softAssert.assertTrue(subServicePage.existsCost(), "Ошибка в блоке 'Стоимость и порядок оплаты'");
+            softAssert.assertTrue(subServicePage.getCategoriesRecipient().size() > 0, "Отсутствуют данные в блоке 'Категории получателей'");
+            softAssert.assertTrue(subServicePage.existsCost(), "Отсутствуют данные в блоке 'Стоимость и порядок оплаты'");
             softAssert.assertTrue(subServicePage.getOrganization().length() > 0, "Не найдено ведомство, предоставляющее услугу");
-            softAssert.assertTrue(subServicePage.getRefusals().size() > 0, "Ошибка в блоке 'Основания для отказа'");
-            softAssert.assertTrue(subServicePage.getResults().size() > 0, "Ошибка в блоке 'Результат оказания услуги'");
+            softAssert.assertTrue(subServicePage.getRefusals().size() > 0, "Отсутствуют данные в блоке 'Основания для отказа'");
+            softAssert.assertTrue(subServicePage.getResults().size() > 0, "Отсутствуют данные в блоке 'Результат оказания услуги'");
         }
     }
 
@@ -62,13 +59,13 @@ public class Steps {
             softAssert.assertTrue(subServicePage.getTemplateLink().length() > 0, "Шаблон заявления не найден");
             softAssert.assertTrue(subServicePage.getExampleLink().length() > 0, "Пример заявления не найден");
             subServicePage.clickButtonAllInfo();
-            softAssert.assertTrue(subServicePage.getRegulationsLink().length() > 0, "Не удалось найти ссылку на регламент'");
+            softAssert.assertTrue(subServicePage.getRegulationsLink().length() > 0, "Не удалось найти ссылку на административный регламент'");
             softAssert.assertTrue(Pattern.matches(".*\\d+.*", subServicePage.getDeadLineComplete()), "Не найден срок оказания услуги");
-            softAssert.assertTrue(subServicePage.getCategoriesRecipient().size() > 0, "Ошибка в блоке 'Категории получателей'");
-            softAssert.assertTrue(subServicePage.existsCost(), "Ошибка в блоке 'Стоимость и порядок оплаты'");
+            softAssert.assertTrue(subServicePage.getCategoriesRecipient().size() > 0, "Отсутствуют данные в блоке 'Категории получателей'");
+            softAssert.assertTrue(subServicePage.existsCost(), "Отсутствуют данные в блоке 'Стоимость и порядок оплаты'");
             softAssert.assertTrue(subServicePage.getOrganization().length() > 0, "Не найдено ведомство, предоставляющее услугу");
-            softAssert.assertTrue(subServicePage.getRefusals().size() > 0, "Ошибка в блоке 'Основания для отказа'");
-            softAssert.assertTrue(subServicePage.getResults().size() > 0, "Ошибка в блоке 'Результат оказания услуги'");
+            softAssert.assertTrue(subServicePage.getRefusals().size() > 0, "Отсутствуют данные в блоке 'Основания для отказа'");
+            softAssert.assertTrue(subServicePage.getResults().size() > 0, "Отсутствуют данные в блоке 'Результат оказания услуги'");
         }
     }
 }
